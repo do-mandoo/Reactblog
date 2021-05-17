@@ -206,7 +206,7 @@ const Plzation = () => {
   };
   const onReset = e => {
     if (!e.target.matches('.resetBtn')) return;
-    console.log(e.target, '1934sjj');
+    console.log(e.target, '1934sasjj');
   };
 
   return (
