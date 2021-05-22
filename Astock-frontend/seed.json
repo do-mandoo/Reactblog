@@ -2,53 +2,82 @@
   "ExStock": [
     {
       "id": 1,
-      "data": 10,
-      "name": "주식1"
+      "PER": 10.4,
+      "PBR":9.3,
+      "ROE":7.2,
+      "name": "주식1",
+      "same":"hi",
+      "option": 101
     },
     {
       "id": 2,
-      "data": 3,
-      "name": "주식2"
+      "PER":9,
+      "PBR": 101,
+      "ROE":2,
+      "name": "주식2",
+      "same":"hi"
     },
     {
       "id": 3,
-      "data": 56,
-      "name": "주식3"
+      "PER":2,
+      "PBR": 56,
+      "ROE":1,
+      "name": "주식3",
+      "same":"hi"
     },
     {
       "id": 4,
-      "data": 33,
-      "name": "주식4"
+      "PER":3,
+      "PBR": 33,
+      "ROE":12,
+      "name": "주식4",
+      "option": 70
     },
     {
       "id": 5,
-      "data": 754,
+      "PER":3.2,
+      "PBR": 754,
+      "ROE":12,
       "name": "주식5"
     },
     {
       "id": 6,
-      "data": 4,
-      "name": "주식6"
+      "PER":3.2,
+      "PBR": 99,
+      "ROE":12,
+      "name": "주식6",
+      "same":"hi",
+      "option": 50
     },
     {
       "id": 7,
-      "data": -1,
+      "PER":3.2,
+      "PBR": -1,
+      "ROE":12,
       "name": "주식7"
     },
     {
       "id": 8,
-      "data": 92,
-      "name": "주식8"
+      "PER":3.2,
+      "PBR": 19.2,
+      "ROE":12,
+      "name": "주식8",
+      "option" : 49
     },
     {
       "id": 9,
-      "data": 5,
+      "PER":3.2,
+      "PBR": 5,
+      "ROE":12,
       "name": "주식9"
     },
     {
       "id": 10,
-      "data": 2,
-      "name": "주식10"
+      "PER":3.2,
+      "PBR": 2,
+      "ROE":12,
+      "name": "주식10",
+      "same":"hi"
     }
   ]
 }

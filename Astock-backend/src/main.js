@@ -41,7 +41,7 @@ app.use(bodyParser());
 // app 인스턴스에 라우터 적용
 app.use(router.routes()).use(router.allowedMethods());
 
-// PORT가 지정되어 있지 않다면 4000을 사용
+// PORT가 지정되어 있지 않다면 5000을 사용
 const port = PORT || 5000;
 app.listen(port, () => {
   console.log('Listening on port', port);

@@ -10,6 +10,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer, { rootSaga } from './modules';
 import { createLogger } from 'redux-logger';
+// import store from './redux/store';
 
 const logger = createLogger();
 const sagaMiddleware = createSagaMiddleware();

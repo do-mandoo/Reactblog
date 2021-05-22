@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import seed from './seed';
 import StockIcon from '../component/StockIcon/StockIcon';
 
 const JusiikStyle = styled.div`
   padding: 20px;
-  padding-left: 60px;
+  /* padding-left: 60px; */
   /* margin: 20px;
   margin-left: 60px; */
   box-sizing: border-box;
@@ -157,29 +156,38 @@ const ResultStyle = styled.div`
 //   }
 // }
 
-const Plzation = () => {
-  const [minNumber, setMinNumber] = useState('');
-  const [maxNumber, setMaxNumber] = useState('');
-  const [data, setData] = useState([]);
+const StockViewer = ({
+  stockData,
+  loadingPost,
+  minNumber,
+  maxNumber,
+  data,
+  setMinNumber,
+  setMaxNumber
+}) => {
+  // const [state, dispatch] = useReducer(initialState, stock);
+  // const [minNumber, setMinNumber] = useState('');
+  // const [maxNumber, setMaxNumber] = useState('');
+  // const [data, setData] = useState([]);
 
-  const [minPBR, setMinPBR] = useState('');
-  const [maxPBR, setMaxPBR] = useState('');
-  const [dataPBR, setDataPBR] = useState([]);
+  // const [minPBR, setMinPBR] = useState('');
+  // const [maxPBR, setMaxPBR] = useState('');
+  // const [dataPBR, setDataPBR] = useState([]);
 
   // const [doit, setDoit] = useState([]);
 
   const num = /^[+-]?\d*(\.?\d*)?$/; // 양수,음수, 소수점 숫자만 허용.
 
-  useEffect(() => {
-    const seedFiltering = seed.ExStock.filter(
-      item => minNumber <= item.PER && item.PER <= maxNumber
-    );
-    setData(seedFiltering);
-    const seedFilteringPBR = seed.PBR.filter(
-      item => minPBR <= item.PER && item.PER <= maxPBR
-    );
-    setDataPBR(seedFilteringPBR);
-  }, [minNumber, maxNumber, maxPBR, minPBR]);
+  // useEffect(() => {
+  //   const seedFiltering = seed.ExStock.filter(
+  //     item => minNumber <= item.PER && item.PER <= maxNumber
+  //   );
+  //   setData(seedFiltering);
+  //   const seedFilteringPBR = seed.PBR.filter(
+  //     item => minPBR <= item.PER && item.PER <= maxPBR
+  //   );
+  //   setDataPBR(seedFilteringPBR);
+  // }, [minNumber, maxNumber, maxPBR, minPBR]);
 
   const showResult = () => {
     console.log(data, 'data');
@@ -195,19 +203,19 @@ const Plzation = () => {
     setMaxNumber(e.target.value);
   };
 
-  const PBRMin = e => {
-    if (!num.test(e.target.value)) return;
-    setMinPBR(e.target.value);
-  };
+  // const PBRMin = e => {
+  //   if (!num.test(e.target.value)) return;
+  //   setMinPBR(e.target.value);
+  // };
 
-  const PBRMax = e => {
-    if (!num.test(e.target.value)) return;
-    setMaxPBR(e.target.value);
-  };
-  const onReset = e => {
-    if (!e.target.matches('.resetBtn')) return;
-    console.log(e.target, '1934sasjj');
-  };
+  // const PBRMax = e => {
+  //   if (!num.test(e.target.value)) return;
+  //   setMaxPBR(e.target.value);
+  // };
+  // const onReset = e => {
+  //   if (!e.target.matches('.resetBtn')) return;
+  //   console.log(e.target, '1934sjj');
+  // };
 
   return (
     <JusiikStyle>
@@ -226,7 +234,7 @@ const Plzation = () => {
             placeholder="최대값을 입력하세요"
           />
         </div>
-        <div className="pbrWrap wrap">
+        {/* <div className="pbrWrap wrap">
           <div>PBR</div>
           <input type="text" onChange={PBRMin} placeholder="최소값입력" />
           ~
@@ -243,10 +251,8 @@ const Plzation = () => {
           <input type="text" onChange={PBRMin} placeholder="최소값입력" />
           ~
           <input type="text" onChange={PBRMax} placeholder="최대값입력" />
-        </div>
-        <button className="resetBtn" onClick={onReset}>
-          reset
-        </button>
+        </div> */}
+        <button className="resetBtn">reset</button>
         <button className="showBtn" onClick={showResult}>
           showMe
         </button>
@@ -254,10 +260,10 @@ const Plzation = () => {
           <p>입력한 최소값은 '{minNumber}'입니다</p>
           <p>입력한 최대값은 '{maxNumber}'입니다</p>
         </div>
-        <div>
+        {/* <div>
           <p>PBR 최소값: {minPBR}.</p>
           <p>PBR 최대값: {maxPBR}.</p>
-        </div>
+        </div> */}
       </section>
       <UlLiStyle>
         <DataStyle>
@@ -273,8 +279,11 @@ const Plzation = () => {
                 <span className="listSame data">same</span>
                 <span className="listOption data">option</span>
               </li>
-              {seed &&
-                seed.ExStock.map(item => {
+              {loadingPost}
+              {loadingPost && 'loading....ing...'}
+              {!loadingPost &&
+                stockData &&
+                stockData.map(item => {
                   return (
                     <li key={item.id}>
                       <span>{item.id}</span>
@@ -288,7 +297,7 @@ const Plzation = () => {
                   );
                 })}
               <br />
-              {seed &&
+              {/* {seed &&
                 seed.PBR.map(item => {
                   return (
                     <li key={item.id}>
@@ -301,7 +310,7 @@ const Plzation = () => {
                       <span>{item.option ? `${item.option}` : 'none'}</span>
                     </li>
                   );
-                })}
+                })} */}
             </ul>
           </section>
         </DataStyle>
@@ -347,7 +356,15 @@ const Plzation = () => {
                 {data
                   .filter(da => da.same === 'hi')
                   .map(d => (
-                    <li key={d.id}>{d.name}</li>
+                    <li key={d.id}>
+                      <span>{d.id}</span>
+                      <span>{d.name}</span>
+                      <span>{d.PER}</span>
+                      <span>{d.PBR}</span>
+                      <span>{d.ROE}</span>
+                      <span>{d.same ? `${d.same}` : 'none'}</span>
+                      <span>{d.option ? `${d.option}` : 'none'}</span>
+                    </li>
                   ))}
               </div>
             )}
@@ -361,11 +378,19 @@ const Plzation = () => {
                       da.same === 'hi' && da.option >= 10 && da.option <= 100
                   )
                   .map(d => (
-                    <li key={d.id}>{d.name}</li>
+                    <li key={d.id}>
+                      <span>{d.id}</span>
+                      <span>{d.name}</span>
+                      <span>{d.PER}</span>
+                      <span>{d.PBR}</span>
+                      <span>{d.ROE}</span>
+                      <span>{d.same ? `${d.same}` : 'none'}</span>
+                      <span>{d.option ? `${d.option}` : 'none'}</span>
+                    </li>
                   ))}
               </div>
             )}
-            <h5>PBRInput</h5>
+            {/* <h5>PBRInput</h5>
             {dataPBR && (
               <div>
                 {dataPBR.map(da => (
@@ -374,7 +399,7 @@ const Plzation = () => {
                   </li>
                 ))}
               </div>
-            )}
+            )} */}
           </section>
         </UlLiStyle>
       </ResultStyle>
@@ -382,4 +407,4 @@ const Plzation = () => {
   );
 };
 
-export default Plzation;
+export default StockViewer;

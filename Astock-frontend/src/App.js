@@ -1,6 +1,7 @@
 import React from 'react';
+// import { useDispatch, useSelector } from 'react-redux';
 // import SampleContainer from './container/SampleContainer';
-import Plzation from './stock-ick/Plz';
+import StockContainer from './container/StockContainer';
 // import { Route } from 'react-router-dom';
 // import PostListPage from './pages/PostListPage';
 // import LoginPage from './pages/LoginPage';
@@ -15,7 +16,7 @@ const App = () => {
   return (
     <>
       {/* <SampleContainer /> */}
-      <Plzation />
+      <StockContainer />
       {/* <PostViewerContainer />
       <PostViewer />
       <Route path={['/@:username', '/']} exact>
