@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 const PostStyle = styled.div`
@@ -22,32 +22,32 @@ const PostStyle = styled.div`
 `;
 
 const Sample = ({ post, users, loadingPost, loadingUsers }) => {
-  const [minValue, setMinValue] = useState('');
-  const [maxValue, setMaxValue] = useState('');
+  // const [minValue, setMinValue] = useState('');
+  // const [maxValue, setMaxValue] = useState('');
 
-  const num = /^[+-]?\d*(\.?\d*)?$/; // 양수,음수, 소수점 숫자만 허용.
+  // const num = /^[+-]?\d*(\.?\d*)?$/; // 양수,음수, 소수점 숫자만 허용.
 
-  // const min = minValue => {
-  //   if (!num.test(minValue)) return;
-  //   setMinValue(minValue);
+  // // const min = minValue => {
+  // //   if (!num.test(minValue)) return;
+  // //   setMinValue(minValue);
+  // // };
+  // // const max = maxValue => {
+  // //   if (!num.test(maxValue)) return;
+  // //   setMaxValue(maxValue);
+  // // };
+  // const min = e => {
+  //   if (!num.test(e.target.value)) return;
+  //   return setMinValue(e.target.value);
   // };
-  // const max = maxValue => {
-  //   if (!num.test(maxValue)) return;
-  //   setMaxValue(maxValue);
+
+  // console.log(min, 'min');
+  // const max = e => {
+  //   if (!num.test(e.target.value)) return;
+  //   setMaxValue(e.target.value);
   // };
-  const min = e => {
-    if (!num.test(e.target.value)) return;
-    return setMinValue(e.target.value);
-  };
+  // console.log(max, 'max');
 
-  console.log(min, 'min');
-  const max = e => {
-    if (!num.test(e.target.value)) return;
-    setMaxValue(e.target.value);
-  };
-  console.log(max, 'max');
-
-  const showResult = () => {};
+  // const showResult = () => {};
 
   // const showResult = (min, max) => {
   //   console.log(post);
@@ -59,7 +59,7 @@ const Sample = ({ post, users, loadingPost, loadingUsers }) => {
     <PostStyle>
       <section className="wrap1">
         <h1>포스트</h1>
-        <div className="choice">
+        {/* <div className="choice">
           <div className="title3">PER (PBR ROE)</div>
           <input
             type="Text"
@@ -79,7 +79,7 @@ const Sample = ({ post, users, loadingPost, loadingUsers }) => {
         <div>
           <p>최소값 입력:{minValue}입니다</p>
           <p>최대값 입력:{maxValue}입니다</p>
-        </div>
+        </div> */}
         <hr style={{ marginTop: '30px' }} />
         {loadingPost}
         {loadingPost && '로딩 중...학교..ㅎ'}
@@ -102,9 +102,8 @@ const Sample = ({ post, users, loadingPost, loadingUsers }) => {
             {users.map(user => (
               <li key={user.id}>
                 <div>
-                  {user.id} - {user.username}({user.email})
+                  {user.id} - {user.name}({user.email})
                 </div>
-                <div>{user.geo}</div>
               </li>
             ))}
           </ul>

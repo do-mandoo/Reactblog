@@ -1,8 +1,6 @@
-// import client from './client';
+import client from './client';
 
-// export const writePost = ({ title, body, tags, name, rangeId, data }) =>
-//   client.post('api/posts', { title, body, tags, name, rangeId, data });
+export const writePost = ({ title, body, tags }) =>
+  client.post('/api/posts', { title, body, tags });
 
-// console.log(writePost, 'writePost101010');
-
-// export const readPost = id => client.get(`/api/posts/${id}`);
+export const readPost = id => client.get(`/api/posts/${id}`);

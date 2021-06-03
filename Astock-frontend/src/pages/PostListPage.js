@@ -1,7 +1,13 @@
 import React from 'react';
+import HeaderContainer from '../component/common/HeaderContainer';
 
 const PostListPage = () => {
-  return <div>포스트 리스트</div>;
+  return (
+    <>
+      <HeaderContainer />
+      포스트 리스트
+    </>
+  );
 };
 
 export default PostListPage;

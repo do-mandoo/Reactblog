@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SerchInput = () => {
-  return <div></div>;
+  return <div>serchinput임</div>;
 };
 
 export default SerchInput;

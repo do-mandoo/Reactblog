@@ -1,23 +1,22 @@
 // 루트 리듀서.
 import { combineReducers } from 'redux';
-// import auth from './auth';
-// import post, { postSaga } from './post';
-// import post from './post';
 import { all } from 'redux-saga/effects';
-// import sample, { sampleSaga } from './sample';
-import stock, { stockSaga } from './stock';
+import auth, { authSaga } from './auth';
 import loading from './loading';
+import user, { userSaga } from './user';
+import write, { writeSaga } from './write';
+import post, { postSaga } from './post';
 
 const rootReducer = combineReducers({
-  // auth,
-  // post
-  // sample,
-  stock,
-  loading
+  auth,
+  loading,
+  user,
+  write,
+  post
 });
 
 export function* rootSaga() {
-  yield all([stockSaga()]);
+  yield all([authSaga(), userSaga(), writeSaga(), postSaga()]);
 }
 
 export default rootReducer;

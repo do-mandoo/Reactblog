@@ -1,21 +1,25 @@
 import axios from 'axios';
 
-// const client = axios.create();
+const client = axios.create();
 
-export const getPost = id =>
-  axios.get(`httpsL//jsonplaceholder.typicode.com/posts/${id}`);
+/* 글로벌 설정 예시:
+// API 주소를 다른 곳으로 사용함
+client.defaults.baseURL = 'https://external-api-server.com/'
 
-export const getUsers = id =>
-  axios.get(`https://jsonplaceholder.typicode.com/users`);
+// 헤더 설정
+client.defaults.headers.common['Authorization'] = 'Beearer a1b2c3d4';
 
-// const client = async () => {
-//   const response = await axios.get('http://localhost:4000/ExStock');
-//   return response.data;
-// };
-// console.log(client, 'client');
-// export const getPostById = async id => {
-//   const response = await axios.get(`http://localhost:4000/ExStock/${id}`);
-//   return response.data;
-// };
+// 인터셉터 설정
+axios.intercepter.response.use(\
+  response => {
+    // 요청 성공 시 특정 작업 수행
+    return response;
+  },
+  error => {
+    // 요청 실패 시 특정 작업 수행
+    return Promise.reject(error);
+  }
+  )
+*/
 
-// export default client;
+export default client;
