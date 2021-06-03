@@ -5,13 +5,14 @@ const { Schema } = mongoose;
 const PostSchema = new Schema({
   title: String,
   body: String,
-  tags: [String],
-  rangeId: Number,
-  name: String,
-  data: Number,
+  tags: [String, String],
   publishedDate: {
     type: Date,
     default: Date.now
+  },
+  user: {
+    _id: mongoose.Types.ObjectId,
+    username: String
   }
 });
 
