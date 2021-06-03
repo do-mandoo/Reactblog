@@ -5,6 +5,7 @@ const FINISH_LOADING = 'loading/FINISH_LOADING';
 
 //요청을 위한 액션 타입을 payload로 설정한다.
 //예 : 'sample/GET_POST'
+//예 : 'stock/GET_DATA'
 
 export const startLoading = createAction(
   START_LOADING,

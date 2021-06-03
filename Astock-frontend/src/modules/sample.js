@@ -69,11 +69,11 @@ export const getUsers = createAction(GET_USERS);
 // }
 
 const getPostSage = createRequestSaga(GET_POST, api.getPost);
-const getUserSaga = createRequestSaga(GET_USERS, api.getUsers);
+const getUsersSaga = createRequestSaga(GET_USERS, api.getUsers);
 
 export function* sampleSaga() {
   yield takeLatest(GET_POST, getPostSage);
-  yield takeLatest(GET_USERS, getUserSaga);
+  yield takeLatest(GET_USERS, getUsersSaga);
 }
 
 // // thunk 함수를 생성.

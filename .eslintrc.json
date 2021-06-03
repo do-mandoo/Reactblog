@@ -12,7 +12,7 @@
     "_": false
   },
   "plugins": ["import", "html","prettier"],
-  "extends": ["plugin:prettier/recommended","react-app"],
+  "extends": ["plugin:prettier/recommended"],
   "rules": {
     "prettier/prettier": "error",
     // "off" or 0 - turn the rule off

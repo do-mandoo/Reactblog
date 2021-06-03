@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getPost, getUsers } from '../modules/sample';
 import Sample from '../component/Sample';
-// import Ano from '../component/Ano';
 
 const { useEffect } = React;
 const SampleContainer = ({
@@ -32,12 +31,6 @@ const SampleContainer = ({
       loadingPost={loadingPost}
       loadingUsers={loadingUsers}
     />
-    // <Ano
-    //   post={post}
-    //   users={users}
-    //   loadingPost={loadingPost}
-    //   loadingUsers={loadingUsers}
-    // />
   );
 };
 
