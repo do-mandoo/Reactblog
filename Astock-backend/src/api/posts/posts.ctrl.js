@@ -1,7 +1,7 @@
 import Post from '../../models/post';
 import mongoose from 'mongoose';
 import Joi from '../../../node_modules/joi/lib/index';
-// import sanitizeHtml from 'sanitize-html';
+import sanitizeHtml from 'sanitize-html';
 
 const { ObjectId } = mongoose.Types;
 
@@ -26,6 +26,39 @@ export const getPostById = async (ctx, next) => {
   }
 };
 
+// html을 없애고 내용이 너무 길면 200자로 제한하는 함수
+const removeHtmlAndShorten = body => {
+  const filtered = sanitizeHtml(body, {
+    allowedTags: []
+  });
+  return filtered.length < 200 ? filtered : `${filtered.slice(0, 200)}...`;
+};
+
+// sanitize-html은 HTML의 특정 태그와 특정 속성만 허용할 수 있다.
+const sanitizeOption = {
+  allowedTags: [
+    'h1',
+    'h2',
+    'b',
+    'i',
+    'u',
+    's',
+    'p',
+    'ul',
+    'ol',
+    'li',
+    'blockquote',
+    'a',
+    'img'
+  ],
+  allowedAttributes: {
+    a: ['href', 'name', 'target'],
+    img: ['src'],
+    li: ['class']
+  },
+  allowedSchemes: ['data', 'http']
+};
+
 export const write = async ctx => {
   // Request Body 검증
   const schema = Joi.object().keys({
@@ -44,7 +77,7 @@ export const write = async ctx => {
   const { title, body, tags } = ctx.request.body;
   const post = new Post({
     title,
-    body,
+    body: sanitizeHtml(body, sanitizeOption),
     tags,
     user: ctx.state.user // 포스트 작성 시 사용자 정보 넣기
   });
@@ -81,7 +114,10 @@ export const list = async ctx => {
       .exec();
     const postCount = await Post.countDocuments(query).exec();
     ctx.set('Last-Page', Math.ceil(postCount / 10));
-    ctx.body = posts;
+    ctx.body = posts.map(post => ({
+      ...post,
+      body: removeHtmlAndShorten(post.body)
+    }));
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -131,9 +167,16 @@ export const update = async ctx => {
     return;
   }
 
+  const nextData = { ...ctx.request.body }; // 객체를 복사하고
+  // body값이 주어졌으면 HTML 필터링
+  if (nextData.body) {
+    nextData.body = sanitizeHtml(nextData.body, sanitizeOption);
+  }
+
   try {
-    const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
-      new: true
+    const post = await Post.findByIdAndUpdate(id, nextData, {
+      new: true // 이 값을 설정하면 업데이트된 데이터를 반환합니다.
+      // false일 때는 업데이트 되기 전의 데이터를 반환합니다.
     }).exec();
     if (!post) {
       ctx.status = 404;

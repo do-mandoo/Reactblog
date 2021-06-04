@@ -8,7 +8,7 @@ import cors from '@koa/cors';
 // src>api>index.js가져오기
 import api from './api';
 import jwtMiddleware from './lib/jwtMiddleware'; // 상단에 위치해야함.
-import createFakeData from './createFakeData';
+// import createFakeData from './createFakeData';
 
 // 비구조화 할당을 통해 process.env 내부 값에 대한 레퍼런스 만들기
 const { PORT, MONGO_URI } = process.env;
@@ -23,7 +23,7 @@ mongoose
   })
   .then(() => {
     console.log('Connected to MongoDB!');
-    createFakeData();
+    // createFakeData();
   })
   .catch(e => {
     console.error(e, 'itserror');
