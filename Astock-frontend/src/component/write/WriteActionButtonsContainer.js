@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { writePost } from '../../modules/write';
 import WriteActionButtons from './WriteActionButtons';
 
@@ -24,7 +25,7 @@ const WriteActionButtonsContainer = ({ history }) => {
     );
   };
 
-  // 취소 포스트 취소
+  // 취소 (포스트 취소)
   const onCancel = () => {
     history.goBack();
   };
@@ -36,11 +37,11 @@ const WriteActionButtonsContainer = ({ history }) => {
       history.push(`/@${user.username}/${_id}`);
     }
     if (postError) {
-      console.log(postError);
+      console.log(postError, 'posterror');
     }
   }, [history, post, postError]);
 
   return <WriteActionButtons onPublish={onPublish} onCancel={onCancel} />;
 };
 
-export default WriteActionButtonsContainer;
+export default withRouter(WriteActionButtonsContainer);
