@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import palette from '../../lib/styles/palette';
 import Responsive from '../common/Responsive';
+import SubInfo from '../common/SubInfo';
+import Tags from '../common/Tags';
 
 const PostViewerBlock = styled(Responsive)`
   margin-top: 64px;
@@ -16,30 +18,7 @@ const PostHead = styled.div`
     margin: 0;
   }
 `;
-const SubInfo = styled.div`
-  margin-top: 16px;
-  color: ${palette.gray[6]};
 
-  /* span 사이에 가운뎃점 문자 보여주기 */
-  span + span:before {
-    content: '\\B7';
-    color: ${palette.gray[5]};
-    padding-left: 4px;
-    padding-right: 4px;
-  }
-`;
-const Tags = styled.div`
-  margin-top: 8px;
-  .tag {
-    display: inline-block;
-    color: ${palette.cyan[7]};
-    text-decoration: none;
-    margin-right: 8px;
-    &:hover {
-      color: ${palette.cyan[5]};
-    }
-  }
-`;
 const PostContent = styled.div`
   font-size: 21px;
   color: ${palette.gray[8]};
@@ -47,9 +26,14 @@ const PostContent = styled.div`
 
 const PostViewer = ({ post, error, loading }) => {
   // 에러 발생 시
+  // if (post === null) {
+
+  // }
   if (error) {
     if (error.response && error.response.status === 404) {
       return <PostViewerBlock>존재하지 않는 포스트입니다.</PostViewerBlock>;
+    } else if (post === null) {
+      return <PostViewerBlock>nullnull</PostViewerBlock>;
     }
     return <PostViewerBlock>오류발생!!</PostViewerBlock>;
   }
@@ -62,17 +46,8 @@ const PostViewer = ({ post, error, loading }) => {
     <PostViewerBlock>
       <PostHead>
         <h1>{title}</h1>
-        <SubInfo>
-          <span>
-            <b>{user.username}</b>
-          </span>
-          <span>{new Date(publishedDate).toLocaleDateString()}</span>
-        </SubInfo>
-        <Tags>
-          {tags.map(tag => (
-            <div className="tag">#{tag}</div>
-          ))}
-        </Tags>
+        <SubInfo username={user.username} publishedDate={publishedDate} />
+        <Tags tags={tags} />
       </PostHead>
       <PostContent dangerouslySetInnerHTML={{ __html: body }} />
     </PostViewerBlock>

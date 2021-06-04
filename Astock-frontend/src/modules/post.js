@@ -15,7 +15,7 @@ const UNLOAD_POST = 'post/UNLOAD_POST'; // 포스트 페이지 벗어날 때 데
 export const readPost = createAction(READ_POST, id => id);
 export const unloadPost = createAction(UNLOAD_POST);
 
-const readPostSaga = createRequestSaga(READ_POST, postsAPI, readPost);
+const readPostSaga = createRequestSaga(READ_POST, postsAPI.readPost);
 export function* postSaga() {
   yield takeLatest(READ_POST, readPostSaga);
 }
