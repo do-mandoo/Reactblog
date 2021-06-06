@@ -21,6 +21,7 @@ const SubInfoBlock = styled.div`
 `;
 
 const SubInfo = ({ username, publishedDate, hasMarginTop }) => {
+  console.log('subinfoprops', username, publishedDate);
   return (
     <SubInfoBlock hasMarginTop={hasMarginTop}>
       <span>

@@ -13,6 +13,10 @@ const WriteActionButtonsContainer = ({ history }) => {
     post: write.post,
     postError: write.postError
   }));
+  console.log('WriteButtonsTitle', title);
+  console.log('WriteButtonsBody', body);
+  console.log('WriteButtonsTags', tags);
+  console.log('WriteButtonsPost', post);
 
   // 포스트 등록
   const onPublish = () => {
@@ -33,6 +37,7 @@ const WriteActionButtonsContainer = ({ history }) => {
   // 성공 혹은 실패 시 할 작업
   useEffect(() => {
     if (post) {
+      console.log('ifPost', post);
       const { _id, user } = post;
       history.push(`/@${user.username}/${_id}`);
     }
