@@ -101,6 +101,7 @@ export const list = async ctx => {
 
   //특정사용자가 작성포스트조회 또는 태그포스트조회
   const { tag, username } = ctx.query;
+  console.log('tag,username in ctx.query', tag, username);
   // tag, username값이 유효하면 객체안에 넣고, 아니면 넣지 않음.
   const query = {
     ...(username ? { 'user.username': username } : {}),
