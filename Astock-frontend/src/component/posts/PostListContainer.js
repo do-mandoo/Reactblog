@@ -1,38 +1,39 @@
-// import React, { useEffect } from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
-// import { withRouter } from 'react-router-dom';
-// import PostList from './PostList';
-// import qs from 'qs';
-// import { listPosts } from '../../modules/posts';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import PostList from './PostList';
+import qs from 'qs';
+import { listPosts } from '../../modules/posts';
 
-// const PostListContainer = ({ location, match }) => {
-//   const dispatch = useDispatch();
-//   const { posts, error, loading, user } = useSelector(
-//     ({ posts, loading, user }) => ({
-//       posts: posts.posts,
-//       error: posts.error,
-//       loading: loading['posts/LIST_POSTS'],
-//       user: user.user
-//     })
-//   );
-//   // console.log('useSelector', posts[0]._doc);
-//   useEffect(() => {
-//     const { username } = match.params;
-//     console.log('username', username);
-//     const { tag, page } = qs.parse(location.search, {
-//       ignoreQueryPrefix: true
-//     });
-//     dispatch(listPosts({ tag, username, page }));
-//   }, [dispatch, location.search, match.params]);
+const PostListContainer = ({ location, match }) => {
+  const dispatch = useDispatch();
+  console.log(1);
+  const { posts, error, loading, user } = useSelector(
+    ({ posts, loading, user }) => ({
+      posts: posts.posts,
+      error: posts.error,
+      loading: loading['posts/LIST_POSTS'],
+      user: user.user
+    })
+  );
+  console.log(2);
+  useEffect(() => {
+    const { username } = match.params;
+    console.log('username', username);
+    const { tag, page } = qs.parse(location.search, {
+      ignoreQueryPrefix: true
+    });
+    dispatch(listPosts({ tag, username, page }));
+  }, [dispatch, location.search, match.params]);
+  console.log(3);
+  return (
+    <PostList
+      loading={loading}
+      error={error}
+      posts={posts}
+      showWriteButton={user}
+    />
+  );
+};
 
-//   return (
-//     <PostList
-//       loading={loading}
-//       error={error}
-//       posts={posts}
-//       showWriteButton={user}
-//     />
-//   );
-// };
-
-// export default withRouter(PostListContainer);
+export default withRouter(PostListContainer);

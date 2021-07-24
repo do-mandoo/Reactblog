@@ -13,10 +13,10 @@ const WriteActionButtonsContainer = ({ history }) => {
     post: write.post,
     postError: write.postError
   }));
-  console.log('WriteButtonsTitle', title);
-  console.log('WriteButtonsBody', body);
-  console.log('WriteButtonsTags', tags);
-  console.log('WriteButtonsPost', post);
+  // console.log('WriteButtonsTitle', title);
+  // console.log('WriteButtonsBody', body);
+  // console.log('WriteButtonsTags', tags);
+  // console.log('WriteButtonsPost', post);
 
   // 포스트 등록
   const onPublish = () => {
