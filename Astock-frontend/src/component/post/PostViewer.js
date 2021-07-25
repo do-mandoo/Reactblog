@@ -48,7 +48,7 @@ const PostContent = styled.div`
 //   }
 // `;
 
-const PostViewer = ({ post, error, loading }) => {
+const PostViewer = ({ post, error, loading, actionButtons }) => {
   console.log(post, '1post');
   // 에러 발생 시
   // if (post === null) {
@@ -74,6 +74,7 @@ const PostViewer = ({ post, error, loading }) => {
         <SubInfo username={user.username} publishedDate={publishedDate} />
         <Tags tags={tags} />
       </PostHead>
+      {actionButtons}
       <PostContent dangerouslySetInnerHTML={{ __html: body }}></PostContent>
     </PostViewerBlock>
   );

@@ -57,7 +57,6 @@ const PostItem = ({ post }) => {
 };
 
 const PostList = ({ posts, loading, error, showWriteButton }) => {
-  console.log(posts, 'posts에 post잇어야함--');
   if (error) {
     return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
   }

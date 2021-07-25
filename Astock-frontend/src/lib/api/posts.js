@@ -14,3 +14,11 @@ export const listPosts = ({ page, username, tag }) => {
   });
   return client.get(`/api/posts?${queryString}`);
 };
+
+// write상태에 originalPostId값이 주어졌다면 포스트 작성 API 대신 수정API를 사용하는 기능
+export const updatePost = ({ id, title, body, tags }) =>
+  client.patch(`/api/posts/${id}`, {
+    title,
+    body,
+    tags
+  });
