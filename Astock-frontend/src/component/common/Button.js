@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import palette from '../../lib/styles/palette';
+import { Link } from 'react-router-dom';
 
 const buttonStyle = css`
   border: none;
@@ -14,6 +15,12 @@ const buttonStyle = css`
   background: ${palette.gray[8]};
   &:hover {
     background: ${palette.gray[6]};
+  }
+
+  &:disabled {
+    background: ${palette.gray[3]};
+    color: ${palette.gray[5]};
+    cursor: not-allowed;
   }
 
   ${props =>
@@ -37,7 +44,7 @@ const buttonStyle = css`
 const StyledButton = styled.button`
   ${buttonStyle}
 `;
-const StyledLink = styled.button`
+const StyledLink = styled(Link)`
   ${buttonStyle}
 `;
 

@@ -7,7 +7,6 @@ import { listPosts } from '../../modules/posts';
 
 const PostListContainer = ({ location, match }) => {
   const dispatch = useDispatch();
-  console.log(1);
   const { posts, error, loading, user } = useSelector(
     ({ posts, loading, user }) => ({
       posts: posts.posts,
@@ -16,21 +15,20 @@ const PostListContainer = ({ location, match }) => {
       user: user.user
     })
   );
-  console.log(2);
+
   useEffect(() => {
     const { username } = match.params;
-    console.log('username', username);
     const { tag, page } = qs.parse(location.search, {
       ignoreQueryPrefix: true
     });
     dispatch(listPosts({ tag, username, page }));
-  }, [dispatch, location.search, match.params]);
-  console.log(3);
+  }, [dispatch, location.search]);
+
   return (
     <PostList
+      posts={posts}
       loading={loading}
       error={error}
-      posts={posts}
       showWriteButton={user}
     />
   );

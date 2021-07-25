@@ -59,6 +59,14 @@ const sanitizeOption = {
   allowedSchemes: ['data', 'http']
 };
 
+/*
+  POST /api/postst
+  {
+    title:'제목',
+    body:'내용',
+    tags:['태그1', '태그2']
+  }
+*/
 export const write = async ctx => {
   // Request Body 검증
   const schema = Joi.object().keys({
@@ -89,7 +97,7 @@ export const write = async ctx => {
   }
 };
 
-/* GET /api/posts?username=&tag=&page= */
+/* GET /api/posts(?username=&tag=&page=) */
 export const list = async ctx => {
   // query는 문자열이기 때문에 숫자로 변환해줘야한다.
   // 값이 주어지지않았다면 1을 기본으로 사용한다.
@@ -99,9 +107,8 @@ export const list = async ctx => {
     return;
   }
 
-  //특정사용자가 작성포스트조회 또는 태그포스트조회
+  //특정사용자가 작성한 포스트만 조회하거나 또는 특정 태그가 있는 포스트만 조회
   const { tag, username } = ctx.query;
-  console.log('tag,username in ctx.query', tag, username);
   // tag, username값이 유효하면 객체안에 넣고, 아니면 넣지 않음.
   const query = {
     ...(username ? { 'user.username': username } : {}),
@@ -109,12 +116,21 @@ export const list = async ctx => {
   };
   try {
     const posts = await Post.find(query)
-      .sort({ _id: -1 })
-      .limit(10)
+      .sort({ _id: -1 }) // 포스트 역순으로 불러오기.
+      .limit(10) // 보이는 개수 제한
       .skip((page - 1) * 10)
+      .lean()
       .exec();
-    const postCount = await Post.countDocuments(query).exec();
+    const postCount = await Post.countDocuments(query).exec(); // 마지막 페이지 번호 알려주기.
     ctx.set('Last-Page', Math.ceil(postCount / 10));
+    // 내용 길이 제한
+    ctx.body = posts
+      // .map(post => post.toJSON()) === .lean()함수를 사용하면 처음부터 JSON형태로 조회할 수 있다.
+      .map(post => ({
+        ...post,
+        body:
+          post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`
+      }));
     ctx.body = posts.map(post => ({
       ...post,
       body: removeHtmlAndShorten(post.body)
@@ -124,9 +140,12 @@ export const list = async ctx => {
   }
 };
 
+/*
+  GET /api/posts/:id
+*/
 export const read = async ctx => {
-  // const { id } = ctx.params; 이 코드를 아래 코드로 간소화.
-  ctx.body = ctx.state.post;
+  const { id } = ctx.params; //이 코드를 아래 코드로 간소화.
+  // ctx.body = ctx.state.post;
 
   try {
     const post = await Post.findById(id).exec();
@@ -134,12 +153,15 @@ export const read = async ctx => {
       ctx.status = 404; //NOT FOUND
       return;
     }
+    ctx.body = post;
   } catch (e) {
     ctx.throw(500, e);
   }
 };
 
-// DELETE
+/*
+  DELETE /api/posts.:id
+*/
 export const remove = async ctx => {
   const { id } = ctx.params;
   try {
@@ -150,7 +172,14 @@ export const remove = async ctx => {
   }
 };
 
-// UPDATE
+/*
+  PATCH /api/posts/:id
+  {
+    title:'수정',
+    body:'수정 내용',
+    tags:['수정','태그']
+  }
+*/
 export const update = async ctx => {
   const { id } = ctx.params;
   // write에서 사용한 schema와 비슷한데, requeired()가 없다.

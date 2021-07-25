@@ -40,19 +40,16 @@ const PostItemBlock = styled.div`
 
 const PostItem = ({ post }) => {
   const { publishedDate, user, tags, title, body, _id } = post;
-  console.log({ tags }, 'tags가 잇냐');
+
   return (
     <PostItemBlock>
       <h2>
-        {/* <Link to={`/@${user}/${_id}`}>{title}</Link> */}
         <Link to={`/@${user.username}/${_id}`}>{title}</Link>
       </h2>
-      {/* <SubInfo username={user} publishedDate={new Date(publishedDate)} /> */}
       <SubInfo
         username={user.username}
         publishedDate={new Date(publishedDate)}
       />
-      {/* <Tags tags={['tag1', 'tag2']} /> */}
       <Tags tags={tags} />
       <p>{body}</p>
     </PostItemBlock>
@@ -60,8 +57,7 @@ const PostItem = ({ post }) => {
 };
 
 const PostList = ({ posts, loading, error, showWriteButton }) => {
-  console.log('postlistPropsLoading', loading);
-  console.log({ posts }, '포스츠가잇냐');
+  console.log(posts, 'posts에 post잇어야함--');
   if (error) {
     return <PostListBlock>에러가 발생했습니다.</PostListBlock>;
   }
