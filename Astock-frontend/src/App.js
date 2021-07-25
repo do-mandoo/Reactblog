@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import WritePage from './pages/WritePage';
 import Postpage from './pages/Postpage';
+import { Helmet } from 'react-helmet-async';
 // import PostViewerContainer from './post/PostViewerContainer';
 // import PostViewer from './post/PostViewer';
 // import PostListContainer from './container/PostListContainer';
@@ -14,8 +15,9 @@ import Postpage from './pages/Postpage';
 const App = () => {
   return (
     <>
-      {/* <PostViewerContainer />
-      <PostViewer /> */}
+      <Helmet>
+        <title>REACTERS</title>
+      </Helmet>
       <Route path={['/@:username', '/']} exact>
         <PostListPage />
       </Route>
