@@ -5,6 +5,10 @@ import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 import cors from '@koa/cors';
 
+import serve from 'koa-static';
+import path from 'path';
+import send from 'koa-send';
+
 // src>api>index.js가져오기
 import api from './api';
 import jwtMiddleware from './lib/jwtMiddleware'; // 상단에 위치해야함.
@@ -44,6 +48,16 @@ app.use(jwtMiddleware);
 
 // app 인스턴스에 라우터 적용
 app.use(router.routes()).use(router.allowedMethods());
+
+const buildDirectory = path.resolve(__dirname, '../../Astock-frontend/build');
+app.use(serve(buildDirectory));
+app.use(async ctx => {
+  // Not Found이고, 주소가 /api로 시작하지 않는 경우
+  if (ctx.status === 404 && ctx.path.indexOf('/api') !== 0) {
+    // index.html 내용을 반환
+    await send(stc, 'index.html', { root: buildDirectory });
+  }
+});
 
 // PORT가 지정되어 있지 않다면 4000을 사용
 // PORT 5000번으로 지정되어있음. .env파일참고
